@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+h1, h2, h3, h4, h5, h6 {
+  color: darkcyan ;
+  font-family: 'Courier New', Courier, monospace ;
+  background-color: aliceblue ;
+}
+.user{
+  border: 1px solid aliceblue ;
+  border-radius: 5px ;
+  padding: 5px ;
+  margin: 5px ;
+}
+.user-name {
+  color: lightblue ;
+  text-align: center;
+}

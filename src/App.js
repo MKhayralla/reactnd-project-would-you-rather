@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Container, Row, Col, Image} from 'react-bootstrap' ;
+import users from './store/_DATA'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+      <Row>
+        <h1>please log in first : </h1><br /><hr />
+      </Row>
+      {users.map((user) => (
+        <Row height={25} key={user.id} className="user">
+          <Col xs={4}>
+            <Image src={user.avatarURL} roundedCircle height={20} width={20} />
+          </ Col>
+          <Col xs={8}>
+            <span className="user-name">{user.name}</span>
+          </ Col>
+        </ Row>
+      ))}
+    </ Container>
   );
 }
 
