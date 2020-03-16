@@ -1,37 +1,35 @@
-import React, {Component} from 'react';
-import {Container, Row, Col, Image} from 'react-bootstrap' ;
+import React, { useEffect } from 'react';
+
 import './App.css';
-import {connect} from 'react-redux'
-import {handleInitialData} from './store/shared'
+import { connect } from 'react-redux'
+import { handleInitialData } from './store/shared'
+import Navigate from './components/navbar'
+import Login from './components/login'
+import Questions from './components/questions'
+import Leaderboard from './components/leaderboard'
+import AddQuestion from './components/addQuestion'
+import ShowQuestion from './components/showQuestion'
 
-class App extends Component {
-  componentDidMount = () =>{
-    this.props.dispatch(handleInitialData())
-  }
-  render = () => (
-      <Container className="App">
-        <Row>
-          <h1>please log in first : </h1><br /><hr />
-        </Row>
-        {this.props.users.map((user) => (
-          <Row height={25} key={user.id} className="user">
-            <Col xs={4}>
-              <Image src={user.avatarURL} roundedCircle height={25} width={25} />
-            </ Col>
-            <Col xs={8}>
-              <span className="user-name">{user.name}</span>
-            </ Col>
-          </ Row>
-        ))}
-      </ Container>
-    )
+const App = (props) => {
+  /* disabling the hook warning 
+  since we need to load data only on mount not on update 
+  (no dependencies needed)*/
+  // eslint-disable-next-line
+  useEffect(() => props.dispatch(handleInitialData()), [])
+  return (
+    <div>
+      <Navigate />
+      <Login />
+      <Questions />
+      <Leaderboard />
+      <AddQuestion />
+      <ShowQuestion qid="loxhs1bqm25b708cmbf3g" />
+      <ShowQuestion qid="vthrdm985a262al8qx3do" />
+      <ShowQuestion qid="6ni6ok3ym7mf1p33lnez" />
+    </ div>
+  )
 }
 
-function mapStateToProps(state) {
-  const {users} = state
-  return {
-    users : Object.values(users)
-  }
-}
 
-export default connect(mapStateToProps)(App);
+
+export default connect()(App);
