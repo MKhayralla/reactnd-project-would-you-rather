@@ -40,6 +40,7 @@
 h1, h2, h3, h4, h5, h6 {
   color: darkcyan ;
   font-family: 'Courier New', Courier, monospace ;
+  text-align: center ;
 }
 .user{
   border: 1px solid aliceblue ;
@@ -59,8 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .question {
   color: lightblue ;
-  border: 1px inset cyan ;
-  border-radius: 2px ;
+  box-shadow: 0 3px 6px rgba(250, 117, 168, 0.16), 0 3px 6px rgba(0,0,0,0.23);
   padding: 5px ;
   margin: 5px ;
   text-align: center ;
@@ -90,9 +90,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .red {
   background-color: rgb(255, 81, 0) ;
+  color: antiquewhite ;
 }
 .blue {
   background-color: rgb(21, 128, 117) ;
+  color: antiquewhite ;
 }
 .chosen {
   color: azure ;
@@ -101,4 +103,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 .clickable {
   cursor: pointer;
+}
+.add-button button {
+  display: block;
+  position: sticky ;
+  left: 80%;
+  bottom: 10%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2e7d7d;
+  background-image: url('/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-size: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.add-button button:hover {
+  background-color: rgb(0, 87, 102);
+}
+.form-field {
+  margin-bottom: 5px ;
 }

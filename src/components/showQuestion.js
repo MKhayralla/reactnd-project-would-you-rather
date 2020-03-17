@@ -1,28 +1,43 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { handleVote } from '../store/shared'
 import { connect } from 'react-redux'
-
+import {withRouter} from 'react-router'
+import {Link} from 'react-router-dom'
+import User from './user'
 
 
 const ShowQuestion = (props) => {
-    const { question, answer, dispatch } = props
+    const { question, answer, authedUser, users, dispatch } = props
     return (
         <Container>
-            <Row>{ answer }</ Row>
             <Row>
                 <h3> Would you rather ?</ h3>
             </ Row>
             {question ?
-                (answer ? (
-                    <Row className="choices">
+                ((answer||!(authedUser)) ? (
+                    <Row>
                         <Col xs={6} className="red">
+                            <Row className="option">
                             {question.optionOne.text}({question.optionOne.votes.length} votes)
                             {answer === 'optionOne' ? <span class="chosen">(your choice)</ span> : <span />}
+                            </ Row>
+                            {
+                                question.optionOne.votes.map((uid) =>(
+                                    <Row><User user={users[uid]} /></ Row>
+                                ))
+                            }
                         </ Col>
                         <Col xs={6} className="blue">
+                            <Row>
                             {question.optionTwo.text}({question.optionTwo.votes.length} votes)
                             {answer === 'optionTwo' ? <span class="chosen">(your choice)</ span> : <span />}
+                            </ Row>
+                            {
+                                question.optionTwo.votes.map((uid) =>(
+                                    <Row><User user={users[uid]} /></ Row>
+                                ))
+                            }
                         </ Col>
                     </ Row>
                 ) : (
@@ -37,7 +52,9 @@ const ShowQuestion = (props) => {
                             </ Col>
                         </ Row >
                     )) : (
-                    <p>not found</ p>
+                    <Row>
+                        <Alert variant="danger">question not found<Link to="/polls" className="clickable">go to polls</ Link></ Alert>
+                    </ Row>
                 )
             }
         </ Container >
@@ -46,11 +63,11 @@ const ShowQuestion = (props) => {
 
 
 function mapStateToProps(state, other) {
-    const { qid } = other
+    const qid = other.match.params['id']
     const { questions, authedUser, users } = state
     const question = questions[qid]
     const answer = question && ((authedUser&&users[authedUser].answers[qid]) || null)
-    return { question, answer }
+    return { question, answer ,authedUser, users }
 }
 
-export default connect(mapStateToProps)(ShowQuestion)
+export default withRouter(connect(mapStateToProps)(ShowQuestion))

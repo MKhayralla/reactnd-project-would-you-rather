@@ -1,26 +1,33 @@
 import React from 'react'
-import {Navbar, Nav} from 'react-bootstrap'
-import {connect} from 'react-redux'
-import {log_out} from '../store/actions'
+import { Navbar, Nav } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { handleLogout } from '../store/shared'
 const Navigate = (props) => {
-    const {authedUser, dispatch} = props
+    const { authedUser, dispatch } = props
     return (
         <Navbar bg='light' expand="md">
-            <Navbar.Brand disabled>Welcome {authedUser?authedUser:null}</ Navbar.Brand>
+            <Navbar.Brand disabled>Welcome {authedUser ? authedUser : null}</ Navbar.Brand>
             <Navbar.Toggle aria-controls="items" />
             <Navbar.Collapse id='items'>
                 <Nav>
                     <Nav.Link>
-                        Questions
+                        <Link to="/polls">Polls</ Link>
                     </ Nav.Link>
                     <Nav.Link>
-                        Leaderboard
+                        <Link to="/leaderboard">Leaderboard</ Link>
                     </ Nav.Link>
                 </ Nav>
-                <Nav className="justify-content-end">
-                    <Nav.Link onClick={()=>dispatch(log_out())}>
-                        Logout
+                <Nav pullRight>
+                    {authedUser ? (
+                        <Nav.Link onClick={() => dispatch(handleLogout())}>
+                            Logout
                     </ Nav.Link>
+                    ) : (
+                            <Nav.Link>
+                                <Link to="/login">Login</ Link>
+                            </ Nav.Link>
+                        )}
                 </ Nav>
             </ Navbar.Collapse>
         </ Navbar>
@@ -28,8 +35,8 @@ const Navigate = (props) => {
 
 }
 function mapStateToProps(state) {
-    const {authedUser} = state
-    return {authedUser}
+    const { authedUser } = state
+    return { authedUser }
 }
 
 export default connect(mapStateToProps)(Navigate)

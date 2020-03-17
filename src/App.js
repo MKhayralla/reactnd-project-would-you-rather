@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-
 import './App.css';
 import { connect } from 'react-redux'
+import { Route, Switch, Redirect} from 'react-router-dom'
 import { handleInitialData } from './store/shared'
 import Navigate from './components/navbar'
 import Login from './components/login'
@@ -16,20 +16,25 @@ const App = (props) => {
   (no dependencies needed)*/
   // eslint-disable-next-line
   useEffect(() => props.dispatch(handleInitialData()), [])
+  const {authedUser} = props
   return (
     <div>
       <Navigate />
-      <Login />
-      <Questions />
-      <Leaderboard />
-      <AddQuestion />
-      <ShowQuestion qid="loxhs1bqm25b708cmbf3g" />
-      <ShowQuestion qid="vthrdm985a262al8qx3do" />
-      <ShowQuestion qid="6ni6ok3ym7mf1p33lnez" />
+        <Switch>
+          <Route exact path='/' render={()=>authedUser?(<Redirect to="/polls" />):(<Redirect to="/login" />)} />
+          <Route path='/login' component={Login} />
+          <Route exact path='/polls' component={Questions} />
+          <Route path='/leaderboard' component={Leaderboard} />
+          <Route path='/add' component={AddQuestion} />
+          <Route path='/polls/:id' component={ShowQuestion} />
+        </ Switch>
     </ div>
   )
 }
 
+function mapStateToprops(state) {
+  const {authedUser} = state
+  return {authedUser}
+}
 
-
-export default connect()(App);
+export default connect(mapStateToprops)(App);
