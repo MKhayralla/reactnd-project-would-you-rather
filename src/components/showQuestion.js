@@ -3,12 +3,17 @@ import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { handleVote } from '../store/shared'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import User from './user'
 
 
 const ShowQuestion = (props) => {
     const { question, answer, authedUser, users, dispatch } = props
+    if (!authedUser) {
+        return (
+          <Redirect to="/login" />
+        )
+      }
     return (
         <Container>
             <Row>
@@ -17,9 +22,10 @@ const ShowQuestion = (props) => {
             {question ?
                 ((answer||!(authedUser)) ? (
                     <Row>
+                        <Col xs={12}><User user={users[question.author]} /></ Col>
                         <Col xs={6} className="red option">
                             <Row>
-                            {question.optionOne.text}
+                            {question.optionOne.text}({question.optionOne.votes.length} vote(s))
                             {answer === 'optionOne' ? <span class="chosen">(your choice)</ span> : <span />}
                             </ Row>
                             {
@@ -30,7 +36,7 @@ const ShowQuestion = (props) => {
                         </ Col>
                         <Col xs={6} className="blue option">
                             <Row>
-                            {question.optionTwo.text}
+                            {question.optionTwo.text}({question.optionTwo.votes.length} vote(s))
                             {answer === 'optionTwo' ? <span class="chosen">(your choice)</ span> : <span />}
                             </ Row>
                             {
@@ -42,6 +48,7 @@ const ShowQuestion = (props) => {
                     </ Row>
                 ) : (
                         <Row>
+                            <Col xs={12}><User user={users[question.author]} /></ Col>
                             <Col xs={6} className="red clickable choices option"
                                 onClick={()=>dispatch(handleVote(question.id, 'optionOne'))}>
                                 {question.optionOne.text}

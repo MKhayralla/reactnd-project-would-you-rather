@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
+import {Redirect} from 'react-router-dom'
 import { handleAddQuestion } from '../store/shared'
 import { connect } from 'react-redux'
 
 const AddQuestion = (props) => {
+    const {authedUser} = props
     const [optionOne, changeOptionOne] = useState('')
     const [optionTwo, changeOptionTwo] = useState('')
+    if (!authedUser) {
+        return (
+          <Redirect to="/login" />
+        )
+      }
     return (
         <Container>
             <Row>
@@ -14,6 +21,12 @@ const AddQuestion = (props) => {
                     <Form onSubmit={
                         (e) => {
                             e.preventDefault()
+                            if (optionOne.trim() === '') {
+                                return alert('fill option one')
+                            }
+                            if (optionTwo.trim() === '') {
+                                return alert('fill option Two')
+                            }
                             props.dispatch(handleAddQuestion(optionOne, optionTwo))
                             changeOptionOne('')
                             changeOptionTwo('')
@@ -36,4 +49,7 @@ const AddQuestion = (props) => {
         </ Container>
     )
 }
-export default connect()(AddQuestion)
+function mapStateToProps({authedUser}) {
+    return {authedUser}
+}
+export default connect(mapStateToProps)(AddQuestion)

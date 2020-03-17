@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import User from './user'
 import { connect } from 'react-redux'
 const Question = (props) => {
@@ -15,7 +15,7 @@ const Question = (props) => {
             <Col xs={12} md={{ 'span': 6, 'offset': 3 }}>
                 <Link to={`/polls/${q.id}`}>
                     <Row><User user={user} /></ Row>
-                    <Row className="date">at : {`${dom}/${month}/${year}`}</ Row>
+                    <Row className="date">at : {`${dom}/${month+1}/${year}`}</ Row>
                     <p className="question">
                         {q.optionOne.text} <br /><big>or</ big><br /> {q.optionTwo.text}
                     </ p>
@@ -28,7 +28,11 @@ const Question = (props) => {
 
 const Questions = (props) => {
     const { answered, unanswered, users, authedUser } = props
-    console.log(answered, unanswered);
+    if (!authedUser) {
+        return (
+          <Redirect to="/login" />
+        )
+      }
 
     return (
         <Container>

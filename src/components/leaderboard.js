@@ -1,10 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import User from './user'
 
 const Leaderboard = (props) => {
-    const { stats } = props
+    const { stats, authedUser } = props
+    if (!authedUser) {
+        return (
+          <Redirect to="/login" />
+        )
+      }
     return (
         <Container>
             <Row className="table-header">
@@ -37,7 +43,7 @@ const Leaderboard = (props) => {
 }
 
 function mapStateToProps(state) {
-    const { users } = state
+    const { users, authedUser } = state
     const stats = Object.values(users).map((user) => {
         const { name, avatarURL } = user
         const n_answers = Object.keys(user.answers).length
@@ -45,7 +51,7 @@ function mapStateToProps(state) {
         const interact = n_answers + n_questions
         return { name, avatarURL, n_answers, n_questions, interact }
     })
-    return {stats}
+    return {stats, authedUser}
 }
 
 export default connect(mapStateToProps)(Leaderboard)
