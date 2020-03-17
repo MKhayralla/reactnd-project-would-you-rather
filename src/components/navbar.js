@@ -7,7 +7,7 @@ const Navigate = (props) => {
     const { authedUser, dispatch } = props
     return (
         <Navbar bg='light' expand="md">
-            <Navbar.Brand disabled>Welcome {authedUser ? authedUser : null}</ Navbar.Brand>
+            <Navbar.Text disabled>Welcome {authedUser ? authedUser : null}</ Navbar.Text>
             <Navbar.Toggle aria-controls="items" />
             <Navbar.Collapse id='items'>
                 <Nav>
@@ -18,7 +18,7 @@ const Navigate = (props) => {
                         <Link to="/leaderboard">Leaderboard</ Link>
                     </ Nav.Link>
                 </ Nav>
-                <Nav pullRight>
+                <Nav>
                     {authedUser ? (
                         <Nav.Link onClick={() => dispatch(handleLogout())}>
                             Logout

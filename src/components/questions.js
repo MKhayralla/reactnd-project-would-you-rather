@@ -5,12 +5,17 @@ import User from './user'
 import { connect } from 'react-redux'
 const Question = (props) => {
     const { q, user } = props
+    const date = new Date(q.timestamp)
+    const dom = date.getDate()
+    const month = date.getMonth()
+    const year = date.getFullYear()
     return (
         <Row>
 
             <Col xs={12} md={{ 'span': 6, 'offset': 3 }}>
                 <Link to={`/polls/${q.id}`}>
                     <Row><User user={user} /></ Row>
+                    <Row className="date">at : {`${dom}/${month}/${year}`}</ Row>
                     <p className="question">
                         {q.optionOne.text} <br /><big>or</ big><br /> {q.optionTwo.text}
                     </ p>
@@ -22,24 +27,24 @@ const Question = (props) => {
 }
 
 const Questions = (props) => {
-    const { answered, unanswered, users } = props
+    const { answered, unanswered, users, authedUser } = props
     console.log(answered, unanswered);
 
     return (
         <Container>
             <Tabs defaultActiveKey="unanswered" id="component-tabs">
                 <Tab eventKey="answered" title="answered questions">
-                    {answered.map((q) => (
+                    {answered.sort((a, b)=>b.timestamp-a.timestamp).map((q) => (
                         <Question q={q} key={q.id} user={users[q.author]} />
                     ))}
                 </ Tab>
                 <Tab eventKey="unanswered" title="unanswered questions">
-                    {unanswered.map((q) => (
+                    {unanswered.sort((a, b)=>b.timestamp-a.timestamp).map((q) => (
                         <Question q={q} key={q.id} user={users[q.author]} />
                     ))}
                 </ Tab>
             </ Tabs>
-            <Link to="/add" className="add-button"><button /></ Link>
+            {authedUser&&(<Link to="/add" className="add-button"><button /></ Link>)}
         </ Container>
     )
 }
@@ -50,6 +55,6 @@ function mapStateToProps(state) {
     const currentUser = users[authedUser]
     const answered = authedUser ? (allQuestions.filter((q) => Object.keys(currentUser.answers).includes(q.id))) : []
     const unanswered = authedUser ? (allQuestions.filter((q) => !Object.keys(currentUser.answers).includes(q.id))) : allQuestions
-    return { answered, unanswered, users }
+    return { answered, unanswered, users, authedUser }
 }
 export default connect(mapStateToProps)(Questions)

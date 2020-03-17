@@ -17,9 +17,9 @@ const ShowQuestion = (props) => {
             {question ?
                 ((answer||!(authedUser)) ? (
                     <Row>
-                        <Col xs={6} className="red">
-                            <Row className="option">
-                            {question.optionOne.text}({question.optionOne.votes.length} votes)
+                        <Col xs={6} className="red option">
+                            <Row>
+                            {question.optionOne.text}
                             {answer === 'optionOne' ? <span class="chosen">(your choice)</ span> : <span />}
                             </ Row>
                             {
@@ -28,9 +28,9 @@ const ShowQuestion = (props) => {
                                 ))
                             }
                         </ Col>
-                        <Col xs={6} className="blue">
+                        <Col xs={6} className="blue option">
                             <Row>
-                            {question.optionTwo.text}({question.optionTwo.votes.length} votes)
+                            {question.optionTwo.text}
                             {answer === 'optionTwo' ? <span class="chosen">(your choice)</ span> : <span />}
                             </ Row>
                             {
@@ -42,11 +42,11 @@ const ShowQuestion = (props) => {
                     </ Row>
                 ) : (
                         <Row>
-                            <Col xs={6} className="red clickable choices"
+                            <Col xs={6} className="red clickable choices option"
                                 onClick={()=>dispatch(handleVote(question.id, 'optionOne'))}>
                                 {question.optionOne.text}
                             </ Col >
-                            <Col xs={6} className="blue clickable choices"
+                            <Col xs={6} className="blue clickable choices option"
                                 onClick={()=>dispatch(handleVote(question.id, 'optionTwo'))}>
                                 {question.optionTwo.text}
                             </ Col>

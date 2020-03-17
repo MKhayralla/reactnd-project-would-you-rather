@@ -129,3 +129,16 @@ h1, h2, h3, h4, h5, h6 {
 .form-field {
   margin-bottom: 5px ;
 }
+.date {
+  color: rgb(73, 79, 85) ;
+  font-family: Georgia, 'Times New Roman', Times, serif ;
+  text-align: center ;
+  padding-left: 40px ;
+  font-size: xx-small ;
+}
+
+.option {
+  padding: 10px ;
+}
+
+
