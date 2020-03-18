@@ -37,6 +37,12 @@
     transform: rotate(360deg);
   }
 }
+span {
+  padding: 2px ;
+}
+a {
+  text-decoration: none ;
+}
 h1, h2, h3, h4, h5, h6 {
   color: darkcyan ;
   font-family: 'Courier New', Courier, monospace ;
@@ -60,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .question {
   color: lightblue ;
-  box-shadow: 0 3px 6px rgba(250, 117, 168, 0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 60, 255, 0.16), 0 3px 6px rgba(0, 132, 255, 0.23);
   padding: 5px ;
   margin: 5px ;
   text-align: center ;
@@ -70,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   color: red ;
 }
 .question:hover {
-  border: 1px outset darkcyan ;
+  box-shadow: 0 3px 6px rgba(255, 0, 242, 0.16), 0 3px 6px rgba(255, 0, 149, 0.23);
 }
 
 .table-header {
@@ -97,9 +103,11 @@ h1, h2, h3, h4, h5, h6 {
   color: antiquewhite ;
 }
 .chosen {
-  color: azure ;
-  font-family: 'Courier New', Courier, monospace ;
-  font-size: smaller ;
+  font: outline;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+  text-align: center ;
+  color: antiquewhite ;
+  min-width: 10% ;
 }
 .clickable {
   cursor: pointer;
@@ -121,6 +129,18 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0;
   outline: 0;
   cursor: pointer;
+}
+.back-button {
+  display: relative;
+  top: 0px;
+  left: 0px;
+  background-image: url('/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50px;
+  font-size: 0;
+  border: none;
+  outline: none;
 }
 
 .add-button button:hover {

@@ -6,7 +6,7 @@ import  history from '../history'
 export function handleLogin(id) {
     return (dispatch) => {
         dispatch(log_in(id))
-        history.push('polls')
+        history.goBack()       
     }
 }
 export function handleLogout() {

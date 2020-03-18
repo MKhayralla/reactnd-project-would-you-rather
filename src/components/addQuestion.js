@@ -1,18 +1,11 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
 import { handleAddQuestion } from '../store/shared'
 import { connect } from 'react-redux'
 
 const AddQuestion = (props) => {
-    const {authedUser} = props
     const [optionOne, changeOptionOne] = useState('')
     const [optionTwo, changeOptionTwo] = useState('')
-    if (!authedUser) {
-        return (
-          <Redirect to="/login" />
-        )
-      }
     return (
         <Container>
             <Row>
@@ -40,16 +33,14 @@ const AddQuestion = (props) => {
                         value={optionTwo}
                         onChange={(e) => changeOptionTwo(e.target.value)}
                         className="form-field" />
-                        <Button type="submit" variant="outline-primary">
+                        <FormControl as={Button} type="submit" variant="outline-primary">
                             Add Poll
-                    </ Button>
+                    </ FormControl>
                     </ Form>
                 </ Col>
             </ Row>
         </ Container>
     )
 }
-function mapStateToProps({authedUser}) {
-    return {authedUser}
-}
-export default connect(mapStateToProps)(AddQuestion)
+
+export default connect()(AddQuestion)

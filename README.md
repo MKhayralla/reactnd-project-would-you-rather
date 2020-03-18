@@ -14,7 +14,7 @@ the app is about answering polls and adding them in a competetive environment
 <li><h6>/login</h6> virtual login by choosing user name</li>
 <li><h6>/polls</h6> all polls sorted by timestamp with add button to add new polls(only if logged in)</li>
 <li><h6>/add</h6> add new poll</li>
-<li><h6>/polls/:id</h6> the poll with id of (id)</li>
+<li><h6>/questions/:id</h6> the poll with id of (id)</li>
 <li><h6>/leaderboard</h6> leaderboard of all users based on sum of questions and answers</li>
 </ul>
 

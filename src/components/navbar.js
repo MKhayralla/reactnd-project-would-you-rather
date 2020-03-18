@@ -11,22 +11,14 @@ const Navigate = (props) => {
             <Navbar.Toggle aria-controls="items" />
             <Navbar.Collapse id='items'>
                 <Nav>
-                    <Nav.Link>
-                        <Link to="/polls">Polls</ Link>
-                    </ Nav.Link>
-                    <Nav.Link>
-                        <Link to="/leaderboard">Leaderboard</ Link>
-                    </ Nav.Link>
+                    <Nav.Link as={Link} to="/polls">Polls</ Nav.Link>
+                    <Nav.Link as={Link} to="/leaderboard">Leaderboard</ Nav.Link>
                 </ Nav>
                 <Nav>
                     {authedUser ? (
-                        <Nav.Link onClick={() => dispatch(handleLogout())}>
-                            Logout
-                    </ Nav.Link>
+                        <Nav.Link onClick={() => dispatch(handleLogout())}>Logout</ Nav.Link>
                     ) : (
-                            <Nav.Link>
-                                <Link to="/login">Login</ Link>
-                            </ Nav.Link>
+                            null
                         )}
                 </ Nav>
             </ Navbar.Collapse>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import User from './user'
 import { connect } from 'react-redux'
 const Question = (props) => {
@@ -13,7 +13,7 @@ const Question = (props) => {
         <Row>
 
             <Col xs={12} md={{ 'span': 6, 'offset': 3 }}>
-                <Link to={`/polls/${q.id}`}>
+                <Link to={`/questions/${q.id}`}>
                     <Row><User user={user} /></ Row>
                     <Row className="date">at : {`${dom}/${month+1}/${year}`}</ Row>
                     <p className="question">
@@ -27,12 +27,7 @@ const Question = (props) => {
 }
 
 const Questions = (props) => {
-    const { answered, unanswered, users, authedUser } = props
-    if (!authedUser) {
-        return (
-          <Redirect to="/login" />
-        )
-      }
+    const { answered, unanswered, users } = props
 
     return (
         <Container>
@@ -48,7 +43,7 @@ const Questions = (props) => {
                     ))}
                 </ Tab>
             </ Tabs>
-            {authedUser&&(<Link to="/add" className="add-button"><button /></ Link>)}
+            <Link to="/add" className="add-button"><button /></ Link>
         </ Container>
     )
 }
@@ -59,6 +54,6 @@ function mapStateToProps(state) {
     const currentUser = users[authedUser]
     const answered = authedUser ? (allQuestions.filter((q) => Object.keys(currentUser.answers).includes(q.id))) : []
     const unanswered = authedUser ? (allQuestions.filter((q) => !Object.keys(currentUser.answers).includes(q.id))) : allQuestions
-    return { answered, unanswered, users, authedUser }
+    return { answered, unanswered, users }
 }
 export default connect(mapStateToProps)(Questions)
